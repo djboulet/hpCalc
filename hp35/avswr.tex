@@ -1,0 +1,94 @@
+	\section{avswr}
+	\setcounter{hppgline}{0}
+	\subsection*{Description}
+	This program calculates actual VSWR given measured VSWR and cable loss to antenna.
+	\subsubsection*{Usage}
+	\texttt{GTO V001 \tab $M$ R/S \tab $L$ R/S }
+	\subsection*{Program Listing}
+	\hpline{V}{LBL V}{Start of program.}
+	\hpline{V}{STO M}{Store measured VSWR in \texttt{M}.}
+	\hpline{V}{STOP}{Pause for entry of cable loss (in dB)}
+	\hpline{V}{+/-}{Negate cable loss \dots}
+	\hpline{V}{10}{\dots and convert to ratio}
+	\hpline{V}{$\div$}{ }
+	\hpline{V}{$10^{x}$}{}
+	\hpline{V}{STO L}{Save as cable loss}
+	\hpline{V}{RCL M}{Get measured VSWR and calculate reflected power ratio}
+	\hpline{V}{1}{ }
+	\hpline{V}{-}{ }
+	\hpline{V}{RCL M}{ }
+	\hpline{V}{1}{ }
+	\hpline{V}{+}{ }
+	\hpline{V}{$\div$}{ }
+	\hpline{V}{$x^{2}$}{ }
+	\hpline{V}{STO R}{Save reflected power ratio}
+	\hpline{V}{RCL L}{Calculate actual VSWR at load}
+	\hpline{V}{$\sqrt{x}$}{ }
+	\hpline{V}{RCL R}{ }
+	\hpline{V}{RCL L}{ }
+	\hpline{V}{$\div$}{ }
+	\hpline{V}{$\sqrt{x}$}{ }
+	\hpline{V}{+}{ }
+	\hpline{V}{RCL L}{ }
+	\hpline{V}{$\sqrt{x}$}{ }
+	\hpline{V}{RCL R}{ }
+	\hpline{V}{RCL L}{ }
+	\hpline{V}{$\div$}{ }
+	\hpline{V}{$\sqrt{x}$}{ }
+	\hpline{V}{-}{ }
+	\hpline{V}{$\div$}{ }
+	\hpline{V}{RTN}{Return to calling function.}
+
+
+
+	\subsection*{Example}
+	Calculate the actual VSWR of an antenna where the measured VSWR is 1:1.13 and cable loss is 4.7dB: \newline	
+	\hpexam{GTO V001}{0.00000}{Go to start of program.}
+	\hpexam{1.13}{1.13}{Your value for $M$ (measured VSWR).}
+	\hpexam{R/S}{1.13000}{}
+	\hpexam{4.7}{4.7}{Your value for cable loss $L$.}
+	\hpexam{R/S}{1.4394}{Actual VSWR at antenna is 1:1.4394}
+
+	\subsection*{How this program works}
+
+	$VSWR$ is the ratio of the sum and difference of forward and reflected voltages:
+
+	\begin{equation}
+		VSWR = {{V_f+V_r}\over{V_f-V_r}}
+	\end{equation}
+
+	Since power is proportional to the square of the voltage, (1) can be expressed in terms of power
+
+	\begin{equation}
+		VSWR = {{\sqrt{P_f}+\sqrt{P_r}}\over{\sqrt{P_f}-\sqrt{P_r}}}
+	\end{equation}
+
+	By setting $P_f$ equal to $1$ and rearranging (2) allows us to solve for  $P_r$
+
+	\begin{equation}
+		\left({{VSWR-1}\over{VSWR+1}}\right)^{2} = P_r
+	\end{equation}
+
+	Cable loss can be expressed as a ratio of power arriving at the antenna to the power delivered to the antenna.
+
+	\begin{equation}
+		L = {{P_a }\over{ P_d}}
+	\end{equation}
+
+	Normally, this is expressed in decibels but for our purposes we can simply express it as a factor of less than 1.
+	Taking into account the cable loss the VSWR at the antenna is
+
+	\begin{equation}
+		VSWR = {{\sqrt{P_f \times L}+\sqrt{P_r \div L}}\over{\sqrt{P_f \times L}-\sqrt{P_r \div L}}}
+	\end{equation}
+
+	Again we set $P_f$ to $1$ so a simplied version of (5) becomes the actual VSWR at the antenna
+
+	\begin{equation}
+		VSWR = {{\sqrt{L}+\sqrt{P_r \div L}}\over{\sqrt{L}-\sqrt{P_r \div L}}}
+	\end{equation}
+
+
+
+
+

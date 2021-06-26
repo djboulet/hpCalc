@@ -1,3 +1,0 @@
-\contentsline {part}{I\hspace {1em}HP35s}{1}{}%
-\contentsline {section}{\numberline {0.1}Modular Exponentiation}{2}{}%
-\contentsline {section}{\numberline {0.2}atan2}{3}{}%
