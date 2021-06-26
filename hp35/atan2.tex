@@ -1,0 +1,51 @@
+	\section{atan2}
+	\setcounter{hppgline}{0}
+	\subsection*{Description}
+	This program calculates ${\rm atan2}(\frac{y}{x})$. Result is in the range $-180$\degree\ to $+180$\degree.
+	\subsubsection*{Usage}
+	\texttt{GTO Z001 \tab $x$ R/S \tab $y$ R/S }
+	\subsection*{Program Listing}
+	\hpline{Z}{LBL Z}{Start of program.}
+	\hpline{Z}{STO X}{Store $x$ in \texttt{X}.}
+	\hpline{Z}{STOP}{Wait for user R/S.}
+	\hpline{Z}{STO Y}{Store $y$ in \texttt{Y}.}
+	\hpline{Z}{RCL Y}{Recall \texttt{Y}. Note: this is also the entry point for subroutine.}
+	\hpline{Z}{RCL X}{Recall \texttt{X}.}
+	\hpline{Z}{$\div$}{Take ratio of rise over run ($\frac{y}{x}$).}
+	\hpline{Z}{ATAN}{Calculate $\arctan(\frac{y}{x})$.}
+	\hpline{Z}{STO R}{Save as an interim result in \texttt{R}.}
+	\hpline{Z}{RCL X}{Test sign of \texttt{X}.}
+	\hpline{Z}{$x > 0$?}{Is $x$ positive?}
+	\hpline{Z}{GTO Z027}{If so then go to end of program.}
+	\hpline{Z}{RCL Y}{Recall \texttt{Y} ...}
+	\hpline{Z}{SGN}{Calculate its sign ...}
+	\hpline{Z}{45}{}
+	\hpline{Z}{$\times$}{then multiply it by 45\degree.}
+	\hpline{Z}{RCL X}{Get \texttt{X} value.}
+	\hpline{Z}{$x = 0$?}{Is it equal to zero?}
+	\hpline{Z}{RTN}{If so then return the value of the stack ($\pm$45\degree)}
+	\hpline{Z}{180}{Setup offset depending on sign of $y$.}
+	\hpline{Z}{STO -R}{Initially subtract 180\degree --- we do this at a minimum.}
+	\hpline{Z}{RCL Y}{Get \texttt{Y} value.}
+	\hpline{Z}{$x < 0$?}{Is it negative?}
+	\hpline{Z}{GTO Z027}{If yes, then we are done since we already subtracted 180\degree.}
+	\hpline{Z}{360}{If $y$ is positive then we have to add 360\degree ...}
+	\hpline{Z}{STO +R}{... for a total addition of 180\degree.}
+	\hpline{Z}{RCL R}{Get the angle.}
+	\hpline{Z}{RTN}{Return to calling function.}
+
+	\subsection*{Example}
+	In the following example we calculate ${\rm atan2}(\frac{+1.5}{-1.0})$ using the following steps: \newline	
+	\hpexam{GTO Z001}{0.00000}{Go to start of program.}
+	\hpexam{1.5}{1.5}{Your value for $x$.}
+	\hpexam{R/S}{1.50000}{}
+	\hpexam{-1.0}{-1.0}{Your value for $y$.}
+	\hpexam{R/S}{-33.69007}{The resulting angle.}
+
+	\subsection*{Comments}
+	Users have to be careful about a couple of things:
+	\begin{enumerate}
+	\item Angles are calculated in \it{degrees}\rm.  Confirm calculator setting before using this function.
+	\item User is responsible for ensuring that $x$ and $y$ are \bf{never}\rm\ both zero.
+	\end{enumerate}
+	

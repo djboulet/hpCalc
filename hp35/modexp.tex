@@ -1,0 +1,36 @@
+	\section{Modular Exponentiation}
+	\setcounter{hppgline}{0}
+	\subsection*{Description}
+	This program calculates the modulus of a number raised to a large power.  The formula looks like this:
+	\[ {modexp} = n^p\ \bmod m\]
+	\subsubsection*{Usage}
+	\texttt{GTO A001 \tab $n$ R/S \tab $p$ R/S \tab $m$ R/S}
+	\subsection*{Program Listing}
+	\hpline{A}{LBL A}{start of program}
+	\hpline{A}{STO N}{store number to the raised to the power P}
+	\hpline{A}{STOP}{wait for user R/S}
+	\hpline{A}{STO P}{store exponent}
+	\hpline{A}{STOP}{wait for user R/S}
+	\hpline{A}{STO M}{store modulus}
+	\hpline{A}{1}{initialize product ...}
+	\hpline{A}{STO R}{... and save in memory}
+	\hpline{A}{RCL N}{recall base ...}
+	\hpline{A}{RCL R}{recall product ...}
+	\hpline{A}{$\times$}{... and multiply the two}
+	\hpline{A}{RCL M}{recall the modulus ...}
+	\hpline{A}{RMDR}{... and apply it}
+	\hpline{A}{STO R}{save the new product}
+	\hpline{A}{DSE P}{decrement exponent ...}
+	\hpline{A}{GTO A009}{... and loop back if not finished.}
+	\hpline{A}{RCL R}{pull the product from memory}
+	\hpline{A}{RTN}{we are done!}
+	\subsection*{Example}
+	In the following example we calculate $\mathbf{5^{101} \bmod 31}$ using the following steps: \newline	
+	\hpexam{GTO A001}{0.00000}{go to start of program}
+	\hpexam{5 R/S}{5.00000}{the ``base''}
+	\hpexam{101 R/S}{101.00000}{the ``exponent''}
+	\hpexam{31 R/S}{25.00000}{the ``modulus'' and result}
+
+	\subsection*{Comments}
+	The HP35s is not known for it's lightning speed.  The above example
+	will take about 12 seconds to run.
