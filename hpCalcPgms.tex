@@ -17,15 +17,18 @@
 	\newcommand{\hpline}[3] { \refstepcounter{hppgline} \tabto{0.25in} \texttt{#1\padzeroes[3]{\decimal{hppgline}}} \tabto{0.75in} \texttt{#2} \tabto{1.75in} {#3} \newline}
 	\newcommand{\hpexam}[3] { \tabto{0.25in} \texttt{#1} \tabto{1.25in} \texttt{#2} \tabto{2.5in} {#3} \newline}
 	\newcommand{\hpprog} { \pagebreak   \setcounter{hppgline}{0} }
+	\newcommand{\blankpage}{\newpage \thispagestyle{empty} \mbox{} \newpage }
 
 	\thispagestyle{empty}
 	\maketitle
+	\blankpage
 
 	\include{revtable}
+	\blankpage
 	
 	\thispagestyle{empty}
 	\tableofcontents
-	\pagebreak
+	\blankpage
 
 	\setcounter{page}{1}
 	\part{HP35s}
